@@ -8,10 +8,10 @@
     <p>{{ $product->description }}</p>
     <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
 
-    <h2>Offers</h2>
+    {{-- <h2>Offers</h2>
     <ul>
         @foreach ($offers as $offer)
             <li>Price: {{ $offer->price }} - Buyer: {{ $offer->buyer->name }}</li>
         @endforeach
-    </ul>
+    </ul> --}}
 @endsection

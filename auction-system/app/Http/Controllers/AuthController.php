@@ -50,7 +50,7 @@ class AuthController extends Controller
 
         if ($user && Hash::check($request->password, $user->password)) {
             session(['user' => $user]);
-            return redirect()->route('products.index');
+            return redirect()->route('products.show');
         }
 
         return back()->withErrors(['email' => 'Invalid credentials']);
