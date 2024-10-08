@@ -1,7 +1,11 @@
-import Vue from 'vue';
-import ProductsComponent from './components/ProductsComponent.vue';
+import { createApp } from 'vue'; // Use createApp for Vue 3
+import productComponent from './components/productComponent.vue';
 
-new Vue({
-    el: '#app',
-    components: { ProductsComponent }
-});
+// Create a new Vue app
+const app = createApp({});
+
+// Register the component
+app.component('product-component', productComponent);
+
+// Mount the app to the DOM element with the id 'app'
+app.mount('#app');

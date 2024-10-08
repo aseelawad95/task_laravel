@@ -8,7 +8,7 @@
         </div>
         <!-- زر إنشاء المنتج الذي يظهر فقط للبائعين -->
         <button v-if="isSeller" @click="createProduct">Create Product</button>
-        
+
         <!-- قائمة المنتجات مع عرض الخيارات المتاحة -->
         <ul>
             <li v-for="product in filteredProducts" :key="product.id">
@@ -21,15 +21,18 @@
             </li>
         </ul>
 
+        <!-- إذا لم توجد منتجات، عرض رسالة -->
+        <p v-if="filteredProducts.length === 0">No products available.</p>
+
         <!-- عرض العروض المقدمة على المنتج -->
-        <div v-if="selectedProductOffers.length > 0">
+        <!-- <div v-if="selectedProductOffers.length > 0">
             <h2>Offers for {{ selectedProductName }}</h2>
             <ul>
                 <li v-for="offer in selectedProductOffers" :key="offer.id">
                     Buyer: {{ offer.buyer.name }} - Offer Price: {{ offer.price }}
                 </li>
             </ul>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -61,45 +64,59 @@ export default {
         },
     },
     methods: {
-        fetchProducts() {
-            // جلب المنتجات من الـ API
-            axios.get('/api/products').then((response) => {
+        async fetchProducts() {
+            try {
+                // جلب المنتجات من الـ API
+                const response = await axios.get('/api/products');
                 this.products = response.data;
-            });
+            } catch (error) {
+                console.error('Error fetching products:', error);
+                alert('Failed to fetch products.');
+            }
         },
         createProduct() {
             // توجيه المستخدم إلى صفحة إنشاء المنتج
             window.location.href = '/create-product';
         },
-        makeOffer(productId) {
+        async makeOffer(productId) {
             const offerPrice = prompt('Enter your offer price:');
             if (offerPrice) {
-                // إرسال عرض السعر إلى السيرفر
-                axios
-                    .post(`/api/products/${productId}/offers`, { price: offerPrice })
-                    .then(() => {
-                        alert('Offer submitted successfully');
-                    });
+                try {
+                    // إرسال عرض السعر إلى السيرفر
+                    await axios.post(`/api/products/${productId}/offers`, { price: offerPrice });
+                    alert('Offer submitted successfully');
+                } catch (error) {
+                    console.error('Error submitting offer:', error);
+                    alert('Failed to submit offer.');
+                }
             }
         },
-        viewOffers(productId) {
-            // جلب العروض الخاصة بالمنتج
-            axios.get(`/api/products/${productId}/offers`).then((response) => {
+        async viewOffers(productId) {
+            try {
+                // جلب العروض الخاصة بالمنتج
+                const response = await axios.get(`/api/products/${productId}/offers`);
                 this.selectedProductOffers = response.data;
                 const product = this.products.find((prod) => prod.id === productId);
                 this.selectedProductName = product ? product.name : '';
-            });
+            } catch (error) {
+                console.error('Error fetching offers:', error);
+                alert('Failed to fetch offers.');
+            }
         },
     },
-    mounted() {
+    async mounted() {
         // جلب المنتجات عند تحميل الصفحة
-        this.fetchProducts();
+        await this.fetchProducts();
 
-        // جلب بيانات المستخدم الحالي للتحقق من نوعه (مشتري أو بائع)
-        axios.get('/api/user').then((response) => {
+        try {
+            // جلب بيانات المستخدم الحالي للتحقق من نوعه (مشتري أو بائع)
+            const response = await axios.get('/api/user');
             this.currentUser = response.data;
             this.isSeller = this.currentUser.type === 'seller';
-        });
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+            alert('Failed to fetch user data.');
+        }
     },
 };
 </script>

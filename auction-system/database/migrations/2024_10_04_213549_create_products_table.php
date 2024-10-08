@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id(); 
-            $table->string('name', 200); // اسم المنتج (حتى 200 حرف)
-            $table->text('description'); // وصف المنتج (نص طويل)
+            $table->string('name',200); // اسم المنتج (حتى 200 حرف)
+            $table->text('description')->max(50); // وصف المنتج (نص طويل)
             $table->string('image'); // حقل الصورة
-            $table->foreignId('seller_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('seller_id')->constrained('usxers')->onDelete('cascade');
             $table->timestamps(); // timestamps للحفظ الآلي لموعد الإنشاء والتحديث
         });
     }

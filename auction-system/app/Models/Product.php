@@ -12,7 +12,7 @@ class Product extends Model
         'name',
         'description',
         'image', 
-        'seller_id', 
+        //'seller_id', 
     ];
 
 

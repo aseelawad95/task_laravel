@@ -1,17 +1,33 @@
-// resources/views/products/show.blade.php
 @extends('layouts.app')
 
-@section('title', $product->name)
+
 
 @section('content')
-    <h1>{{ $product->name }}</h1>
-    <p>{{ $product->description }}</p>
-    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
 
-    {{-- <h2>Offers</h2>
-    <ul>
-        @foreach ($offers as $offer)
-            <li>Price: {{ $offer->price }} - Buyer: {{ $offer->buyer->name }}</li>
-        @endforeach
-    </ul> --}}
+@foreach($productss as $p)
+   <div>
+     <h1 style="color: black">{{ $p->name }}</h1>
+    <p>{{ $p->description }}</p>
+    <img src="{{ asset( $p->image) }}" alt="{{ $p->name }}">
+
+   </div>
+@endforeach
+
+
+@php
+$i = 0; // Initialize counter
+@endphp
+
+<h2>Offers</h2>
+<ul>
+@foreach ($productss[$i]->offers as $offer)
+    @if ($i >= count($productss)) // Limit the number of offers displayed
+        @break // Exit the loop if the limit is reached
+    @endif
+    <li>{{ $offer['price'] }}----{{$offer['buyer_id']}} -</li>
+    @php
+        $i++; // Increment the counter
+    @endphp
+@endforeach
+</ul>
 @endsection
