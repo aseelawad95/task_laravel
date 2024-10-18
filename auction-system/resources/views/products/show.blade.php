@@ -9,13 +9,12 @@
      <h1 style="color: black">{{ $p->name }}</h1>
     <p>{{ $p->description }}</p>
     <img src="{{ asset( $p->image) }}" alt="{{ $p->name }}">
-
    </div>
 @endforeach
 
 
 @php
-$i = 0; // Initialize counter
+$i = 0; 
 @endphp
 
 <h2>Offers</h2>

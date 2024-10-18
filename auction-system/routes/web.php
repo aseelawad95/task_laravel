@@ -18,8 +18,8 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 
-// Route::get('/products',[ProductController::class,'show'])->name('products.index');
-Route::get('/products', [ProductController::class, 'show']);
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+//Route::get('/products', [ProductController::class, 'show']);
 Route::get('/create-product', [ProductController::class, 'create'])->name('products.create');
  Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 Route::get('/products/{product}/offers', [ProductController::class, 'getOffers'])->name('products.offers');

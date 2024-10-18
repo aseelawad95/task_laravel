@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -14,18 +13,20 @@ class ProductController extends Controller
     {
         return view('products.create');
     }
-    public function index()
-    {
-        $products = Product::all();
-        return response()->json($products, 200);
-    }
+
+    
+    public function index(Product $product)
+{
+    $productss = $product->with('offers')->get(); 
+    return view('products.index', compact('productss')); 
+}
 
     public function show(Product $product)
     {
         $productss = $product->with('offers')->get();
       //  return $productss;
       return view('welcome');
-        return view('products.show', compact('productss'));
+      //  return view('products.show', compact('productss'));
     }
 
     public function store(Request $request)
@@ -56,15 +57,15 @@ class ProductController extends Controller
             // Image URL
             $imageURL = url('uploads/' . $filename);
         }
-        // $sellerId = session('user.id');
-        // if (!$sellerId) {
-        //     return response()->json(['error' => 'Seller ID is required'], 400);
-        // }
+        $sellerId = session('user.id');
+        if (!$sellerId) {
+            return response()->json(['error' => 'Seller ID is required'], 400);
+        }
         $product = Product::create([
             'name' => $request->name,
             'description' => $request->description,
             'image' => $imageURL,
-            'seller_id' =>  1,
+            'seller_id' =>  $sellerId,
         ]);
 
 

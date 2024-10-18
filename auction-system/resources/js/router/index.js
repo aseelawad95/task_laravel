@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import CreateProduct from '../components/CreateProduct.vue';
+import productComponent from '../components/CreateProduct.vue';
 
 Vue.use(Router);
 
