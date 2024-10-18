@@ -1,4 +1,3 @@
-<!-- resources/views/products/create-product.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'Create Product')

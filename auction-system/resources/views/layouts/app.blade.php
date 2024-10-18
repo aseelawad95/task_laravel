@@ -1,4 +1,3 @@
-<!-- resources/views/layouts/app.blade.php -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +8,10 @@
     <title>@yield('title', 'Auction System')</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js']) </head>
+
+    
 </head>
 
 <body>
@@ -55,6 +58,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
+    <script src= @vite(['resources/css/app.css', 'resources/js/app.js'])></script>
+
 </body>
 
 </html>

@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id(); 
-            $table->string('name',200); // اسم المنتج (حتى 200 حرف)
-            $table->text('description')->max(50); // وصف المنتج (نص طويل)
-            $table->string('image'); // حقل الصورة
+            $table->id();
+            $table->string('name', 200);
+            $table->text('description')->max(50);
+            $table->string('image');
             $table->foreignId('seller_id')->constrained('usxers')->onDelete('cascade');
-            $table->timestamps(); // timestamps للحفظ الآلي لموعد الإنشاء والتحديث
+            $table->timestamps();
         });
     }
 
