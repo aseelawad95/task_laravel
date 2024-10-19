@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\User;
 
 class ProductController extends Controller
 {
@@ -14,19 +14,16 @@ class ProductController extends Controller
         return view('products.create');
     }
 
-    
+
     public function index(Product $product)
-{
-    $productss = $product->with('offers')->get(); 
-    return view('products.index', compact('productss')); 
-}
+    {
+        $productss = $product->with('offers')->get();
+        return view('products.index', compact('productss'));
+    }
 
     public function show(Product $product)
     {
-        $productss = $product->with('offers')->get();
-      //  return $productss;
-      return view('welcome');
-      //  return view('products.show', compact('productss'));
+        return view('products.show');
     }
 
     public function store(Request $request)
@@ -42,19 +39,14 @@ class ProductController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            // Get the file from the request
             $file = $request->file('image');
-            
-            // Get the original filename with extension
+
             $filename = time() . '.' . $file->getClientOriginalExtension();
-    
-            // Define the path to save the image
+
             $path = public_path('uploads');
-    
-            // Move the file to the public/uploads directory
+
             $file->move($path, $filename);
-    
-            // Image URL
+
             $imageURL = url('uploads/' . $filename);
         }
         $sellerId = session('user.id');
@@ -70,11 +62,5 @@ class ProductController extends Controller
 
 
         return redirect('/products');
-    }
-
-    public function getOffers(Product $product)
-    {
-        $offers = $product->offers()->with('buyer')->get();
-        return response()->json($offers);
     }
 }

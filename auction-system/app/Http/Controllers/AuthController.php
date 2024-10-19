@@ -36,7 +36,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('login');
+        return redirect()->route('login')->with('user_id', $user->id);
     }
 
     public function login(Request $request)

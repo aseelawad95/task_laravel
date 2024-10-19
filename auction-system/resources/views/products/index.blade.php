@@ -2,17 +2,9 @@
 @section('title', 'All Products')
 
 @section('content')
-    <div id="app">
-        <product-component>
-        </product-component>
-    </div>
-    <script>
-        import productComponent from "./ProductComponent.vue";
-        export default {
-            name: 'ProductComponent',
-            components: {
-                productComponent,
-            }
-        }
-    </script>
+<div id="app">
+    <productComponent></productComponent>
+</div>
+<script src= @vite(['resources/css/app.css', 'resources/js/app.js'])></script>
+
 @endsection
