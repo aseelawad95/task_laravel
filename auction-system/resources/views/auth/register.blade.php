@@ -14,7 +14,7 @@
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" name="email" class="form-control" id="email" placeholder="Email" required>
-            </div>0
+            </div>
             <div class="form-group">
                 <label for="phone">Phone Number</label>
                 <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone Number" required>

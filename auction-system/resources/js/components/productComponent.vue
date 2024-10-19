@@ -56,8 +56,8 @@ export default {
         async fetchProducts() {
             try {
                 const response = await fetch("/api/products");
-                const data = await response.json();
-                this.products = response.data;
+                const data = await response.json();  
+                this.products = data;
             } catch (error) {
                 console.error("Error fetching products:", error);
                 alert("Failed to fetch products.");

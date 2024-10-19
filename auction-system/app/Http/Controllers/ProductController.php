@@ -51,7 +51,7 @@ class ProductController extends Controller
         }
         $sellerId = session('user.id');
         if (!$sellerId) {
-            return response()->json(['error' => 'Seller ID is required'], 400);
+            return response()->json(['error' => 'seller ID is required'], 400);
         }
         $product = Product::create([
             'name' => $request->name,
